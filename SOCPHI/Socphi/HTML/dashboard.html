@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrivaShield — Dashboard</title>
+  <link rel="stylesheet" href="../Frontend/style.css" />
+  <link rel="stylesheet" href="../Frontend/dashboard.css" />
+  <style>
+    /* Fix for password input buttons alignment */
+    .pw-input-wrap {
+      display: flex;
+      align-items: center; /* vertical center */
+      gap: 6px;
+      flex-wrap: wrap; /* responsive on mobile */
+    }
+
+    .pw-input-wrap input {
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .pw-input-wrap .toggle-vis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 0.6rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+    }
+
+    .pw-input-wrap .btn {
+      height: 36px;
+      padding: 0 0.8rem;
+      flex-shrink: 0;
+    }
+
+    @media(max-width: 500px) {
+      .pw-input-wrap {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .pw-input-wrap .toggle-vis,
+      .pw-input-wrap .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">Priva<span>Shield</span></div>
+    </div>
+
+    <div class="sidebar-section-label">// TOOLS</div>
+
+    <a class="nav-item active" data-panel="passwords" href="javascript:void(0)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="fill:#00e5ff;">
+          <path d="M19,14H13a1,1,0,0,1-1-1V10a4,4,0,0,1,8,0v3A1,1,0,0,1,19,14Zm-5-2h4V10a2,2,0,0,0-4,0Z"/>
+          <rect x="9" y="12" width="14" height="14" rx="3" ry="3"/>
+          <path d="M18,18a2,2,0,1,0-3,1.72V21a1,1,0,0,0,2,0V19.72A2,2,0,0,0,18,18Z"/>
+        </svg>
+      </span> Password Checker
+    </a>
+    <a class="nav-item" data-panel="phishing" href="javascript:void(0)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" style="stroke:#ef4444;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+          <line x1="11" y1="8" x2="11" y2="14"/>
+          <line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+      </span> Phishing Detector
+    </a>
+    <a class="nav-item" data-panel="quiz" href="javascript:void(0)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 272 272" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="fill:#f59e0b;">
+          <rect height="8" width="136" x="68" y="68"/>
+          <rect height="8" width="136" x="68" y="92"/>
+          <rect height="8" width="136" x="68" y="116"/>
+          <rect height="8" width="136" x="68" y="140"/>
+          <rect height="8" width="136" x="68" y="164"/>
+          <rect height="8" width="136" x="68" y="188"/>
+          <rect height="8" width="136" x="68" y="212"/>
+          <path d="M216,40H192V16l-8-8H48V264H224V48Zm0,216H56V16H184V48h32Z"/>
+          <path d="M184,8V48h40Zm8,32V27.31L204.69,40Z"/>
+        </svg>
+      </span> Privacy Score
+    </a>
+    <a class="nav-item" data-panel="tips" href="javascript:void(0)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+          <path fill="#10b981" d="M32,6C21,6,12,15,12,26c0,7.5,4.1,14,10.2,17.6V48h19.6V43.6C47.9,40,52,33.5,52,26C52,15,43,6,32,6z"/>
+          <rect fill="#10b981" x="22" y="50" width="20" height="4" rx="2"/>
+          <rect fill="#10b981" x="24" y="56" width="16" height="4" rx="2"/>
+          <line x1="26" y1="20" x2="26" y2="36" stroke="rgba(0,0,0,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="32" y1="16" x2="32" y2="36" stroke="rgba(0,0,0,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="38" y1="20" x2="38" y2="36" stroke="rgba(0,0,0,0.25)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span> Protection Tips
+    </a>
+    <a class="nav-item" data-panel="vault" href="javascript:void(0)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+          <circle cx="32" cy="18" r="10" fill="#7c3aed"/>
+          <path fill="#7c3aed" d="M32,30C20,30,10,36,10,44v2c0,2,2,4,4,4h36c2,0,4-2,4-4v-2C54,36,44,30,32,30z"/>
+          <rect x="27" y="40" width="10" height="8" rx="2" fill="#0a0e1a"/>
+          <path d="M29,40v-2a3,3,0,0,1,6,0v2" fill="none" stroke="#0a0e1a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="32" cy="44" r="1.2" fill="#7c3aed"/>
+          <line x1="32" y1="45.2" x2="32" y2="47" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span> Secure Vault
+    </a>
+
+    <div class="sidebar-section-label" style="margin-top:16px;">// STATUS</div>
+    <div class="sidebar-status">
+      <span class="status-dot"></span>System Online
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div style="display:flex;align-items:center;">
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbarTitle">🔑 Password Checker</div>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-badge">SOCIPP · III-BINS</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ==================== PANEL: PASSWORD ==================== -->
+      <div class="panel active" id="panel-passwords">
+        <div class="page-title">Password Strength Checker</div>
+        <div class="page-sub">// Analyze and generate strong passwords</div>
+
+        <div class="grid2">
+
+          <!-- Analyzer -->
+          <div class="card">
+            <div class="card-title">🔑 Analyze Password</div>
+            <div class="input-group">
+              <label>Enter a password to test</label>
+              <div class="pw-input-wrap">
+                <input type="password" id="pwInput" placeholder="Type here..." />
+                <button class="toggle-vis" onclick="togglePw()">👁️</button>
+              </div>
+              <button class="btn btn-sm" onclick="checkPassword()" style="margin-top:8px;">Check Password</button>
+            </div>
+            <div class="strength-bar-wrap">
+              <div class="strength-bar" id="strengthBar"></div>
+            </div>
+            <div class="strength-label" id="strengthLabel" style="color:var(--muted)">Waiting for input...</div>
+            <div class="pw-checks">
+              <div class="pw-check" id="chk-len">     <div class="dot"></div> 12+ characters</div>
+              <div class="pw-check" id="chk-upper">   <div class="dot"></div> Uppercase</div>
+              <div class="pw-check" id="chk-lower">   <div class="dot"></div> Lowercase</div>
+              <div class="pw-check" id="chk-num">     <div class="dot"></div> Number</div>
+              <div class="pw-check" id="chk-sym">     <div class="dot"></div> Special char</div>
+              <div class="pw-check" id="chk-nocommon"><div class="dot"></div> Not common</div>
+            </div>
+          </div>
+
+          <!-- Generator -->
+          <div class="card">
+            <div class="card-title">⚡ Password Generator</div>
+            <div class="input-group">
+              <label>Length: <span id="lenVal">16</span></label>
+              <input type="range" id="pwLen" min="8" max="32" value="16" style="width:100%;accent-color:var(--accent);" />
+            </div>
+            <button class="btn btn-sm" onclick="generatePassword()">Generate Password</button>
+            <div class="gen-output" id="genResult" onclick="copyGenPassword()" title="Click to copy">—</div>
+            <p class="copy-hint">Click password to copy</p>
+
+            <div class="divider"></div>
+            <div class="card-title" style="font-size:0.82rem;">🚫 Never Use These</div>
+            <div class="weak-tags">
+              <span class="tag-danger">123456</span>
+              <span class="tag-danger">password</span>
+              <span class="tag-danger">qwerty</span>
+              <span class="tag-danger">iloveyou</span>
+              <span class="tag-danger">admin</span>
+              <span class="tag-danger">letmein</span>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /panel-passwords -->
+
+      <!-- ==================== PANEL: PHISHING ==================== -->
+      <div class="panel" id="panel-phishing">
+        <div class="page-title">Phishing &amp; Scam Detector</div>
+        <div class="page-sub">// Detect red flags in emails and URLs</div>
+
+        <div class="grid2">
+
+          <!-- Email Checker -->
+          <div class="card">
+            <div class="card-title">📧 Email Checker</div>
+            <div class="input-group">
+              <label>Paste suspicious email content</label>
+              <textarea id="emailInput" rows="6" placeholder="Dear user, your account has been compromised. Click here to verify immediately..."></textarea>
+            </div>
+            <button class="btn btn-sm" onclick="checkEmail()">Analyze Email</button>
+            <div class="risk-result" id="emailResult"></div>
+          </div>
+
+          <!-- URL Checker -->
+          <div class="card">
+            <div class="card-title">🔗 URL Checker</div>
+            <div class="input-group">
+              <label>Paste a suspicious link</label>
+              <input type="text" id="urlInput" placeholder="e.g. http://g00gle-login.xyz/verify" />
+            </div>
+            <button class="btn btn-sm" onclick="checkURL()">Analyze URL</button>
+            <div class="risk-result" id="urlResult"></div>
+
+            <div class="divider"></div>
+            <div class="card-title" style="font-size:0.82rem;">⚠️ Common Red Flags</div>
+            <div class="info-row"><div class="icon">🚩</div><div><strong>Urgency Language</strong><p>"Act now!", "Verify immediately", "Account will be suspended"</p></div></div>
+            <div class="info-row"><div class="icon">🚩</div><div><strong>Spoofed Domains</strong><p>g00gle.com, paypa1.net — typosquatting tricks</p></div></div>
+            <div class="info-row"><div class="icon">🚩</div><div><strong>Generic Greetings</strong><p>"Dear Customer" instead of your actual name</p></div></div>
+          </div>
+
+        </div>
+      </div><!-- /panel-phishing -->
+
+      <!-- ==================== PANEL: QUIZ ==================== -->
+      <div class="panel" id="panel-quiz">
+        <div class="page-title">Privacy Score Assessment</div>
+        <div class="page-sub">// How well do you protect your identity?</div>
+
+        <div class="card" id="quizCard">
+          <div class="card-title">📋 Answer all 6 questions honestly</div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">1. Do you use unique passwords for each account?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="1" data-v="3" onclick="selectOption(this)">✅ Yes, always</button>
+              <button class="quiz-option" data-q="1" data-v="1" onclick="selectOption(this)">🔄 Sometimes</button>
+              <button class="quiz-option" data-q="1" data-v="0" onclick="selectOption(this)">❌ No, I reuse passwords</button>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">2. Do you use two-factor authentication (2FA)?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="2" data-v="3" onclick="selectOption(this)">✅ Yes, on all important accounts</button>
+              <button class="quiz-option" data-q="2" data-v="1" onclick="selectOption(this)">🔄 On some accounts</button>
+              <button class="quiz-option" data-q="2" data-v="0" onclick="selectOption(this)">❌ No</button>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">3. How often do you check your privacy settings on social media?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="3" data-v="3" onclick="selectOption(this)">✅ Regularly</button>
+              <button class="quiz-option" data-q="3" data-v="1" onclick="selectOption(this)">🔄 Rarely</button>
+              <button class="quiz-option" data-q="3" data-v="0" onclick="selectOption(this)">❌ Never checked</button>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">4. Do you click on links in emails without verifying the sender?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="4" data-v="0" onclick="selectOption(this)">❌ Yes, I click freely</button>
+              <button class="quiz-option" data-q="4" data-v="1" onclick="selectOption(this)">🔄 Sometimes I check</button>
+              <button class="quiz-option" data-q="4" data-v="3" onclick="selectOption(this)">✅ I always verify first</button>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">5. Do you use public Wi-Fi without a VPN?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="5" data-v="0" onclick="selectOption(this)">❌ Yes, frequently</button>
+              <button class="quiz-option" data-q="5" data-v="1" onclick="selectOption(this)">🔄 Rarely</button>
+              <button class="quiz-option" data-q="5" data-v="3" onclick="selectOption(this)">✅ I use a VPN / avoid it</button>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-q">6. How much personal info do you share publicly on social media?</div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-q="6" data-v="0" onclick="selectOption(this)">❌ Name, birthday, location, phone</button>
+              <button class="quiz-option" data-q="6" data-v="1" onclick="selectOption(this)">🔄 Some info but not all</button>
+              <button class="quiz-option" data-q="6" data-v="3" onclick="selectOption(this)">✅ Minimal / private account</button>
+            </div>
+          </div>
+
+          <button class="btn" id="calcBtn" onclick="calculateScore()">Calculate My Score</button>
+
+          <div class="score-display" id="scoreDisplay">
+            <div class="score-ring" id="scoreRing"><span id="scoreNum">0</span></div>
+            <div class="score-text" id="scoreText"></div>
+            <div class="score-sub"  id="scoreSub"></div>
+            <button class="btn btn-sm btn-outline" style="margin-top:14px;" onclick="resetQuiz()">Retake Quiz</button>
+          </div>
+        </div>
+      </div><!-- /panel-quiz -->
+
+      <!-- ==================== PANEL: TIPS ==================== -->
+      <div class="panel" id="panel-tips">
+        <div class="page-title">Protection Tips</div>
+        <div class="page-sub">// Best practices for Filipino netizens</div>
+
+        <div class="tip-grid">
+          <div class="tip-card"><div class="tip-icon">🔐</div><div class="tip-title">Password Manager</div><div class="tip-desc">Use Bitwarden or 1Password to generate and store unique strong passwords for every account.</div></div>
+          <div class="tip-card"><div class="tip-icon">📲</div><div class="tip-title">Enable 2FA</div><div class="tip-desc">Even if your password is stolen, 2FA stops attackers. Use Google Authenticator over SMS.</div></div>
+          <div class="tip-card"><div class="tip-icon">🕵️</div><div class="tip-title">Use a VPN</div><div class="tip-desc">A VPN encrypts your traffic on public Wi-Fi, preventing hackers from intercepting your data.</div></div>
+          <div class="tip-card"><div class="tip-icon">🧹</div><div class="tip-title">Audit Social Media</div><div class="tip-desc">Set accounts to private. Remove birthdays and phone numbers. Oversharing helps identity thieves.</div></div>
+          <div class="tip-card"><div class="tip-icon">📧</div><div class="tip-title">Spot Phishing</div><div class="tip-desc">Hover over links before clicking. Legitimate companies never ask for passwords via email.</div></div>
+          <div class="tip-card"><div class="tip-icon">💳</div><div class="tip-title">Monitor Accounts</div><div class="tip-desc">Review bank statements regularly. Set up alerts. Report suspicious transactions to BSP or your bank.</div></div>
+          <div class="tip-card"><div class="tip-icon">⚖️</div><div class="tip-title">Know PH Laws</div><div class="tip-desc">RA 10173 (Data Privacy Act) and RA 10175 (Cybercrime Act) protect Filipinos from identity theft.</div></div>
+          <div class="tip-card"><div class="tip-icon">🔄</div><div class="tip-title">Update Software</div><div class="tip-desc">Enable auto-updates on your OS and apps. Security patches fix known vulnerabilities.</div></div>
+          <div class="tip-card"><div class="tip-icon">🗑️</div><div class="tip-title">Delete Old Accounts</div><div class="tip-desc">Unused accounts store your data and are breach risks. Close accounts you no longer use.</div></div>
+        </div>
+      </div><!-- /panel-tips -->
+
+      <!-- ==================== PANEL: VAULT ==================== -->
+      <div class="panel" id="panel-vault">
+        <div class="page-title">Secure Vault (Demo)</div>
+        <div class="page-sub">// See how encryption protects sensitive data</div>
+
+        <div class="grid2">
+
+          <!-- Encrypt / Decrypt -->
+          <div class="card">
+            <div class="card-title">🔒 Encrypt / Decrypt</div>
+            <div class="input-group">
+              <label>Sensitive text to encrypt</label>
+              <textarea id="vaultInput" rows="4" placeholder="e.g. My SSS number is 12-3456789-0"></textarea>
+            </div>
+            <div class="input-group">
+              <label>Secret key / passphrase</label>
+              <input type="text" id="vaultKey" placeholder="Enter a secret key..." />
+            </div>
+            <div class="vault-actions">
+              <button class="btn btn-sm" onclick="encryptData()">🔐 Encrypt</button>
+              <button class="btn btn-sm btn-outline" onclick="decryptData()">🔓 Decrypt</button>
+            </div>
+            <div class="vault-output" id="vaultOutput"></div>
+            <p class="vault-note">⚠️ XOR + Base64 simulation. Real apps use AES-256 encryption.</p>
+          </div>
+
+          <!-- Why Encryption Matters -->
+          <div class="card">
+            <div class="card-title">📚 Why Encryption Matters</div>
+            <div class="info-row"><div class="icon">🛡️</div><div><strong>What is Encryption?</strong><p>Converts readable data into an unreadable format that can only be decoded with the correct key.</p></div></div>
+            <div class="info-row"><div class="icon">🔑</div><div><strong>End-to-End Encryption</strong><p>Used by Signal. Only sender and receiver can read messages — not even the company can access them.</p></div></div>
+            <div class="info-row"><div class="icon">🏦</div><div><strong>HTTPS</strong><p>The 🔒 in your browser means TLS/SSL encryption. Never enter sensitive data on HTTP sites.</p></div></div>
+            <div class="info-row"><div class="icon">📂</div><div><strong>Full Disk Encryption</strong><p>Enable BitLocker (Windows) or FileVault (Mac) to protect data if your laptop is stolen.</p></div></div>
+          </div>
+
+        </div>
+      </div><!-- /panel-vault -->
+
+    </div><!-- /content -->
+  </main>
+
+  <!-- Toast -->
+  <div class="alert-bar" id="alertBar"></div>
+
+  <!-- Scripts — loaded last so DOM is ready -->
+  <script src="../Backend/utils.js"></script>
+  <script src="../Backend/dashboard.js"></script>
+
+
+</body>
+</html>
