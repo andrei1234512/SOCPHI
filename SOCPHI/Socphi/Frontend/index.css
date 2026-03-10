@@ -283,46 +283,55 @@
 
 .feature:hover .feature-link { opacity: 1; }
 
-/* ======================== PH LAW SECTION ======================== */
-.law-section {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px;
-  margin-bottom: 80px;
-  position: relative;
-  z-index: 1;
+/* ===================================== */
+/* PH LAWS CLEAN 2x2 GRID STYLE          */
+/* ===================================== */
+
+.law-section{
+    font-family:"Times New Roman", Georgia, serif;
 }
 
-.law-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 28px;
+.law-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap:20px;
+    margin-top:25px;
 }
 
-.law-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
+.law-card{
+    font-family:"Times New Roman", Georgia, serif;
+    background:rgba(255,255,255,0.04);
+    padding:18px 22px;
+    border-radius:8px;
+    border-left:4px solid #c9a227;
+    transition:all .25s ease;
+    text-decoration:none;
+    color:inherit;
 }
 
-.law-tag {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--accent3);
-  background: rgba(124,58,237,0.1);
-  border: 1px solid rgba(124,58,237,0.3);
-  padding: 3px 8px;
-  border-radius: 4px;
-  display: inline-block;
-  margin-bottom: 10px;
-  letter-spacing: 0.5px;
+.law-card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,0.06);
 }
 
-.law-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
-.law-card p  { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+.law-card h4{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.law-card p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+.law-tag{
+    font-size:12px;
+    font-weight:bold;
+    color:#c9a227;
+    margin-bottom:6px;
+    display:inline-block;
+}
 
 /* ======================== CTA ======================== */
 .cta {

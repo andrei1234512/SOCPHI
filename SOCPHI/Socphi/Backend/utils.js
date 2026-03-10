@@ -26,3 +26,39 @@
       .then(() => showAlert('📋 Copied to clipboard!'))
       .catch(() => showAlert('❌ Copy failed — try manually.'));
   }
+
+  let meter = document.getElementById("phishMeter");
+let level = document.getElementById("phishLevel");
+
+/* Example scoring */
+
+let text = document.getElementById("emailInput").value.toLowerCase();
+
+let score = 0;
+
+if(text.includes("verify")) score++;
+if(text.includes("urgent")) score++;
+if(text.includes("click")) score++;
+if(text.includes("account")) score++;
+if(text.includes("password")) score++;
+
+let meter = document.getElementById("phishMeter");
+let level = document.getElementById("phishLevel");
+
+if(score <= 1){
+    meter.style.width = "30%";
+    meter.style.background = "#10b981";
+    level.innerText = "LOW RISK";
+}
+
+else if(score <= 3){
+    meter.style.width = "60%";
+    meter.style.background = "#f59e0b";
+    level.innerText = "MEDIUM RISK";
+}
+
+else{
+    meter.style.width = "100%";
+    meter.style.background = "#ef4444";
+    level.innerText = "HIGH RISK";
+}

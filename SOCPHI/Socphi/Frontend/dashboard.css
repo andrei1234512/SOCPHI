@@ -77,7 +77,13 @@ body {
 
 .nav-item:hover       { color: var(--text); background: rgba(255,255,255,0.04); }
 .nav-item.active      { color: var(--accent); background: rgba(0,229,255,0.07); border-left-color: var(--accent); }
-.nav-item .nav-icon   { font-size: 1rem; width: 20px; text-align: center; }
+.nav-item 
+.nav-icon img{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  display:block;
+}
 
 .sidebar-footer {
   margin-top: auto;

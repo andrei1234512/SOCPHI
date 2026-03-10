@@ -113,12 +113,12 @@ a { text-decoration: none; }
   gap: 6px;
 }
 
-.btn:hover    { opacity: 0.9; }
-.btn:active   { transform: scale(0.97); }
+.btn:hover { opacity: 0.9; }
+.btn:active { transform: scale(0.97); }
 
-.btn-sm       { padding: 8px 16px; font-size: 0.8rem; }
+.btn-sm { padding: 8px 16px; font-size: 0.8rem; }
 
-.btn-outline  {
+.btn-outline {
   background: transparent;
   border: 1px solid var(--accent);
   color: var(--accent);
@@ -212,10 +212,18 @@ input:focus, textarea:focus { border-color: var(--accent); }
   border-bottom: 1px solid var(--border);
   font-size: 0.82rem;
 }
+
 .info-row:last-child { border-bottom: none; }
-.info-row .icon     { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-.info-row strong    { display: block; margin-bottom: 2px; }
-.info-row p         { color: var(--muted); font-size: 0.76rem; line-height: 1.5; }
+
+.info-row .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+.info-row strong { display: block; margin-bottom: 2px; }
+
+.info-row p {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
 
 /* --- Status dot --- */
 .status-dot {
@@ -257,28 +265,146 @@ input:focus, textarea:focus { border-color: var(--accent); }
   line-height: 1.7;
 }
 
-.risk-safe   { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: var(--success); }
-.risk-warn   { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.25);  color: var(--warning); }
-.risk-danger { background: rgba(239,68,68,0.08);   border: 1px solid rgba(239,68,68,0.25);   color: var(--danger); }
+/* ================= PHISHING RISK METER ================= */
 
-.risk-badge {
-  font-size: 0.9rem;
-  font-weight: 700;
-  font-family: 'Syne', sans-serif;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.risk-meter{
+  margin-top:12px;
+}
+
+.risk-label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.risk-bar{
+  width:100%;
+  height:8px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.risk-fill{
+  height:100%;
+  width:0%;
+  background:var(--accent);
+  transition:width .35s ease;
+}
+
+.risk-text{
+  margin-top:6px;
+  font-size:12px;
+  font-family:'Space Mono', monospace;
 }
 
 /* ======================== ANIMATIONS ======================== */
-@keyframes fadeIn    { from { opacity:0; transform:translateY(8px);  } to { opacity:1; transform:translateY(0); } }
-@keyframes fadeDown  { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
-@keyframes slideUp   { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
-@keyframes blink     { 0%,100%{opacity:1} 50%{opacity:0.3} }
-@keyframes pulse     { 0%,100%{opacity:.7;transform:translateX(-50%) scale(1);} 50%{opacity:1;transform:translateX(-50%) scale(1.1);} }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:translateY(0);} }
+
+@keyframes fadeDown { from { opacity:0; transform:translateY(-16px);} to { opacity:1; transform:translateY(0);} }
+
+@keyframes slideUp { from { opacity:0; transform:translateX(-50%) translateY(20px);} to { opacity:1; transform:translateX(-50%) translateY(0);} }
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+@keyframes pulse { 0%,100%{opacity:.7;transform:translateX(-50%) scale(1);} 50%{opacity:1;transform:translateX(-50%) scale(1.1);} }
 
 /* ======================== RESPONSIVE ======================== */
 @media(max-width: 700px) {
   .grid2 { grid-template-columns: 1fr; }
+}
+
+
+/* ============================================================
+   PH LAWS SECTION — GOVERNMENT LEGAL STYLE
+   ============================================================ */
+
+
+.law-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+.law-section{
+  margin-top:30px;
+}
+
+.law-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  margin-top:25px;
+}
+
+/* Card */
+.law-card{
+  background:rgba(255,255,255,0.04);
+  padding:22px 24px;
+  border-radius:12px;
+  border-left:5px solid #c9a227;
+  text-decoration:none;
+  color:inherit;
+  position:relative;
+  transition:all .25s ease;
+}
+
+/* Hover */
+.law-card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.07);
+  box-shadow:0 12px 22px rgba(0,0,0,0.35);
+}
+
+/* RA badge */
+.law-tag{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:#111;
+  border-radius:6px;
+  display:inline-block;
+  margin-bottom:12px;
+}
+
+/* Title */
+.law-card h4{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* Description */
+.law-card p{
+  font-family:"Times New Roman", serif;
+  font-size:14px;
+  line-height:1.6;
+  opacity:.9;
+}
+
+/* Hover indicator */
+.law-card::after{
+  content:"↗ View Law";
+  position:absolute;
+  right:20px;
+  bottom:16px;
+  font-size:12px;
+  font-weight:600;
+  opacity:0;
+  transition:opacity .25s ease;
+}
+
+.law-card:hover::after{
+  opacity:1;
+}
+
+/* Responsive */
+@media(max-width:700px){
+  .law-grid{
+    grid-template-columns:1fr;
+  }
 }
